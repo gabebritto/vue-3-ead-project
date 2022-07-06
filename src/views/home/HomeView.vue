@@ -12,7 +12,7 @@
     <div class="content">
         <ul class="listCourses">
             <card-course
-              :title="'Curso de Laravel com Vue.js'" :image="''" :bgName="'bg-laravel'">
+              :title="'Curso de Laravel com Vue.js'" :image="''" :bgName="'laravel'">
             </card-course>
         </ul>
     </div>
