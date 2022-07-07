@@ -11,9 +11,9 @@
 </template>
 
 <script>
+import { onBeforeMount } from '@vue/runtime-core'
 import HeaderComponent from './components/headerComponent.vue'
 import FooterComponent from './components/footerComponent.vue'
-import { onBeforeMount } from '@vue/runtime-core'
 
 export default {
     name: 'TemplateDefault',
