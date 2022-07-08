@@ -48,7 +48,7 @@
                                 <input type="password" name="password" placeholder="Senha" required>
                                 <i class="far fa-eye buttom"></i>
                             </div>
-                            <button class="btn primary" type="submit">Login</button>
+                            <button class="btn primary" type="submit" @click.prevent="login">Login</button>
                         </form>
                         <span>
                             <p class="fontSmall">Esqueceu sua senha?
@@ -66,7 +66,15 @@
 </template>
 
 <script>
+import router from '@/router'
 export default {
-    name: 'AuthLogin'
+    name: 'AuthLogin',
+    setup() {
+        const login = () => router.push({name: 'ead.home'});
+
+        return {
+            login
+        }
+    }
 }
 </script>
