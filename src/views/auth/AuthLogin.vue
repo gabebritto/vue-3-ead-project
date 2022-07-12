@@ -41,14 +41,22 @@
                         <form action="/dist/index.html" method="">
                             <div class="groupForm">
                                 <i class="far fa-envelope"></i>
-                                <input type="email" name="email" placeholder="Email" required>
+                                <input type="email" name="email" placeholder="E-mail" v-model="email" required>
                             </div>
                             <div class="groupForm">
                                 <i class="far fa-key"></i>
-                                <input type="password" name="password" placeholder="Senha" required>
+                                <input type="password" name="password" placeholder="Senha" v-model="password" required>
                                 <i class="far fa-eye buttom"></i>
                             </div>
-                            <button class="btn primary" type="submit" @click.prevent="auth">Login</button>
+                            <button :class="[
+                                'btn',
+                                'primary',
+                                loading ? 'loading' : ''
+                            ]" 
+                            type="submit" @click.prevent="auth">
+                                <span v-if="loading">Enviando...</span>
+                                <span v-else>Login</span>
+                            </button>
                         </form>
                         <span>
                             <p class="fontSmall">Esqueceu sua senha?
@@ -66,25 +74,37 @@
 </template>
 
 <script>
-//import router from '@/router'
+import { ref } from 'vue'
+import router from '@/router'
 import { useStore } from 'vuex'
 export default {
     name: 'AuthLogin',
     setup() {
         const store = useStore()
-
+        const email = ref("")
+        const password = ref("")
+        const loading = ref(false)
 
 
         const auth = () => {
+            loading.value = true
+
             store.dispatch('auth', {
-                email: 'fake.email@mail.com',
-                password: '123456',
+                email: email.value,
+                password: password.value,
                 device_name: 'auth_vue3'
             })
+
+            .then(() => router.push({name: 'ead.home'}))
+            .catch(() => alert('error'))
+            .finally(() => loading.value = false)
         }
 
         return {
-            auth
+            auth,
+            email,
+            password,
+            loading
         }
     }
 }
