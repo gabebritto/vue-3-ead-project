@@ -1,4 +1,5 @@
 import AuthService from "@/services/auth.service";
+import ResetPasswordService from "@/services/password.reset.service";
 
 export default {
     state:{
@@ -25,6 +26,10 @@ export default {
         auth ( {state}, params) {
             state.loggedIn
             return AuthService.auth(params);
+        },
+        forgotPassword ( {state}, params ) {
+            state.loggedIn
+            return ResetPasswordService.forgotPassword(params)
         }
 
     }
