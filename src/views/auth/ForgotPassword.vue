@@ -71,6 +71,7 @@
 <script>
 import { ref } from '@vue/reactivity'
 import { useStore } from 'vuex'
+import { notify } from '@kyvg/vue3-notification'
 
 export default {
     name: 'ForgotPassword',
@@ -84,8 +85,17 @@ export default {
             loading.value = true
 
             store.dispatch('forgotPassword', {email: email.value})
-                 .then(() => alert('Confira o seu e-mail'))
-                 .catch(() => alert('error'))
+                 .then(() => notify({
+                                title: "Email enviado",
+                                text: "Link para alterar senha enviado no email.",
+                            }))
+                 .catch((() => {
+                            notify({
+                                title: "Falha",
+                                text: "Falha ao recuperar o usuário",
+                                type: "warn"
+                            })
+                        }))
                  .finally(() => loading.value = false)    
         }
 

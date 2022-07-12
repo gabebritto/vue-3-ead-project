@@ -77,6 +77,8 @@
 import { ref } from 'vue'
 import router from '@/router'
 import { useStore } from 'vuex'
+import { notify } from '@kyvg/vue3-notification'
+
 export default {
     name: 'AuthLogin',
     setup() {
@@ -95,8 +97,25 @@ export default {
                 device_name: 'auth_vue3'
             })
 
-            .then(() => router.push({name: 'ead.home'}))
-            .catch(() => alert('error'))
+            .then(() => {
+                notify({
+                                title: "Sucesso",
+                                text: "Login realizado com sucesso!",
+                })
+                router.push({name: 'ead.home'})
+            })
+            .catch(error => {
+                let msgError = "Falha na requisição"
+
+                if (error.status === 422) msgError = 'Dados Inválidos'
+                if (error.status === 404) msgError = 'Usuário não encontrado.'
+
+                notify({
+                    title: "Falha ao autenticar",
+                    text: msgError,
+                    type: "warn"
+                })
+            })
             .finally(() => loading.value = false)
         }
 
