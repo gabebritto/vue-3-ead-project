@@ -11,4 +11,14 @@ export default class ResetPasswordService extends BaseService{
                 .catch(error => reject(error.response))
         })
     }
+
+    static async resetPassword(params) {
+        return new Promise((resolve, reject) => {
+            
+            this.request()
+                .post('/reset-password', params)
+                .then(response => {resolve(response)})
+                .catch(error => reject(error.response))
+        })
+    }
 }
