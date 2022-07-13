@@ -14,6 +14,7 @@
                     <li 
                     v-for="lesson in module.lessons" 
                     :key="lesson.id" 
+                    :class="{'active' : lesson.id == lessonInPlayer.id}"
                     @click.prevent="addLessonInPlayer(lesson)">
                         <span v-if="lesson.views.lenght > 0" class="check active fas fa-check" ></span>
                         <span class="nameLesson">{{lesson.name}}</span>
@@ -35,6 +36,7 @@ export default {
         const store = useStore()
         const showModule = ref('0')
 
+        const lessonInPlayer = computed(() => store.state.courses.lessonPlayer)
         const course = computed(() => store.state.courses.courseSelected)
         const modules = computed(() => store.state.courses.courseSelected.modules)
         const toggleModule = (moduleId) => showModule.value = moduleId
@@ -47,8 +49,9 @@ export default {
             course,
             modules,
             showModule,
+            lessonInPlayer,
             toggleModule,
-            addLessonInPlayer
+            addLessonInPlayer,
         }
     },
 }
