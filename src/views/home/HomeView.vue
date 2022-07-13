@@ -20,12 +20,19 @@
 </template>
 
 <script>
-// @ is an alias to /src
+import { onMounted} from 'vue'
+import { useStore } from 'vuex'
 import CardCourse from '@/views/home/components/CardCourse.vue'
+
 export default {
-  name: 'HomeView',
+  name: "HomeView",
+  setup() {
+    const store = useStore()
+    onMounted(() => store.dispatch('getCourses'))
+  },
+
   components: {
-    CardCourse,
+    CardCourse
   }
-}
+};
 </script>
