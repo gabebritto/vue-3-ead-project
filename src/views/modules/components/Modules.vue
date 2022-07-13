@@ -10,8 +10,9 @@
                     <span class="text">{{module.name}}</span>
                     <span class="icon fas fa-sort-down"></span>
                 </div>
-                <ul class="classes" v-for="lesson in module.lessons" :key="lesson.id">
-                    <li class="active">
+                <ul class="classes">
+                    <li v-for="lesson in module.lessons" :key="lesson.id">
+                        <span v-if="lesson.views.lenght > 0" class="check active fas fa-check" ></span>
                         <span class="nameLesson">{{lesson.name}}</span>
                     </li>
                 </ul>
