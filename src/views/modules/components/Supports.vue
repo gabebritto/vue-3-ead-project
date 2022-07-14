@@ -2,12 +2,19 @@
     <div class="comments" v-show="lesson.name">
         <div class="header">
             <span class="title">Dúvidas ({{supports.length}})<span v-if="loading">(Carregando...)</span></span>
-            <button class="btn primary">
+            <button class="btn primary"
+                @click.prevent="modal.showModal=true">
                 <i class="fas fa-plus"></i>
                 Enviar nova dúvida
             </button>
         </div>
         <supports-global/>
+
+        <modal-support
+        :showModal="modal.showModal"
+        :supportReply="modal.supportReply"
+        @closeModal="modal.showModal = false"
+        />
 
 
     </div>
@@ -15,6 +22,8 @@
 
 <script>
 import SupportsGlobal from '@/components/Supports.vue'
+import ModalSupport from '@/components/SupportModal.vue'
+
 import { useStore } from 'vuex'
 import { computed, ref, watch } from 'vue'
 export default {
@@ -28,6 +37,11 @@ export default {
         const supports = computed(() => store.state.supports.supports.data)
         const loading = ref(false)
 
+        const modal = ref({
+            showModal: false,
+            supportReply: ''
+        })
+
         watch(
             () => store.state.courses.lessonPlayer,
             () => {
@@ -40,7 +54,9 @@ export default {
         return {
             lesson,
             loading,
-            supports
+            supports,
+            ModalSupport,
+            modal
         }
 
     },
