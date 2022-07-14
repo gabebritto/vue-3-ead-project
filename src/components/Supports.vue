@@ -16,9 +16,12 @@
                         <span class="text">{{support.description}}</span>
                     </div>
                 </span>
-                <button class="btn primary">Ver respostas</button>
+                <button class="btn primary">
+                    <span v-if="showSupport === support.id" @click.prevent="showSupport = '0'">Ocultar respostas</span>
+                    <span v-else @click.prevent="showSupport = support.id" >Exibir respostas ({{support.replies.length}})</span>
+                </button>
             </div>
-            <div class="answersContent">
+            <div class="answersContent" v-show="showSupport === support.id">
                 <div :class="['commentContent', {'rightContent' : support.user.id != reply.user.id}]" v-for="reply in support.replies" :key="reply.id">
                     <span class="avatar" v-if="support.user.id == reply.user.id">
                         <img :src="[
@@ -51,7 +54,7 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 
 export default {
@@ -60,10 +63,13 @@ export default {
     setup() {
         const store =  useStore()
 
+        const showSupport = ref('0')
+
         const supports = computed(() => store.state.supports.supports)
 
         return {
-            supports
+            supports,
+            showSupport
         }
     }
 
