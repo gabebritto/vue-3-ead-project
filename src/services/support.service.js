@@ -1,6 +1,6 @@
 import BaseService from "./base.service";
 
-export default class CourseService extends BaseService {
+export default class SupportService extends BaseService {
 
     static async getSupportsByLesson (lessonId) {
         return new Promise((resolve, reject) => {

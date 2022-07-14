@@ -1,7 +1,7 @@
 <template>
     <div class="comments" v-show="lesson.name">
         <div class="header">
-            <span class="title">Dúvidas</span>
+            <span class="title">Dúvidas ({{supports.length}})<span v-if="loading">(Carregando...)</span></span>
             <button class="btn primary">
                 <i class="fas fa-plus"></i>
                 Enviar nova dúvida
@@ -16,7 +16,7 @@
 <script>
 import SupportsGlobal from '@/components/Supports.vue'
 import { useStore } from 'vuex'
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 export default {
     name: 'SupportsLesson',
     
@@ -25,9 +25,22 @@ export default {
         const store = useStore()
 
         const lesson = computed(() => store.state.courses.lessonPlayer)
+        const supports = computed(() => store.state.supports.supports.data)
+        const loading = ref(false)
 
+        watch(
+            () => store.state.courses.lessonPlayer,
+            () => {
+                loading.value = true
+                store.dispatch('getSupportsWithLessonId', lesson.value.id)
+                        .finally(loading.value = false)
+                }
+            )
+        
         return {
-            lesson
+            lesson,
+            loading,
+            supports
         }
 
     },

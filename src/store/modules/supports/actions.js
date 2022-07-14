@@ -1,8 +1,9 @@
-import CourseService from "@/services/course.service"
+import SupportService from "@/services/support.service"
 
 const actions = {
-    getSupports ({commit}) {
-        CourseService.getCourses().then(response => commit('ADD_MY_COURSES', response.data))
+    getSupportsWithLessonId ({commit}, lessonId) {
+        return SupportService.getSupportsByLesson(lessonId)
+                                .then(supports => commit('SET_SUPPORTS', supports))
     }
 }
 export default actions
