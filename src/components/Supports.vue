@@ -3,7 +3,7 @@
         <div class="card" v-for="support in supports.data" :key="support.id">
             <div class="commentContent main">
                 <span class="avatar">
-                    <img :src="[reply.user.image ? reply.user.image : '@/assets/images/avatars/user01.svg']" :alt="support.user.name">
+                    <img :src="[reply.user.image ? reply.user.image : require('@/assets/images/avatars/user01.svg')]" :alt="support.user.name">
                 </span>
                 <span class="comment">
                     <div class="balloon">
