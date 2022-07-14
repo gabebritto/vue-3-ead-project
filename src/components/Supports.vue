@@ -3,7 +3,11 @@
         <div class="card" v-for="support in supports.data" :key="support.id">
             <div class="commentContent main">
                 <span class="avatar">
-                    <img :src="[reply.user.image ? reply.user.image : require('@/assets/images/avatars/user01.svg')]" :alt="support.user.name">
+                    <img :src="[
+                        support.user.image ?
+                        support.user.image : '@/assets/images/avatars/user01.svg'
+                    ]" 
+                    :alt="support.user.name">
                 </span>
                 <span class="comment">
                     <div class="balloon">
@@ -14,34 +18,29 @@
                 </span>
                 <button class="btn primary">Ver respostas</button>
             </div>
-        </div>
-        <div class="card">
-            <div class="answersContent" v-for="reply in support.replies" :key="reply.id">
-                <div class="commentContent rightContent">
+            <div class="answersContent">
+                <div :class="['commentContent', {'rightContent' : support.user.id != reply.user.id}]" v-for="reply in support.replies" :key="reply.id">
+                    <span class="avatar" v-if="support.user.id == reply.user.id">
+                        <img :src="[
+                            support.user.image ?
+                            support.user.image : '@/assets/images/avatars/user01.svg'
+                        ]" 
+                        :alt="support.user.name">
+                    </span>
                     <div class="comment">
                         <div class="balloon">
                             <span class="fas fa-sort-down"></span>
-                            <span class="owner">{{reply.user.name}} - {{ reply.date }}</span>
+                            <span class="owner">{{reply.user.name}} - {{ reply.date}}</span>
                             <span class="text" v-text="reply.description"></span>
                         </div>
                     </div>
-                    <span class="avatar">
-                        <img src="images/avatars/user03.svg" alt="">
+                    <span class="avatar" v-if="support.user.id != reply.user.id">
+                        <img :src="[
+                            support.user.image ?
+                            support.user.image : '@/assets/images/avatars/user01.svg'
+                        ]" 
+                        :alt="support.user.name">
                     </span>
-                </div>
-                <div class="commentContent">
-                    <span class="avatar">
-                        <img src="images/avatars/user01.svg" alt="">
-                    </span>
-                    <div class="comment">
-                        <div class="balloon">
-                            <span class="fas fa-sort-down"></span>
-                            <span class="owner">Fernando - 07/10/2021</span>
-                            <span class="text">
-                                In eleifend urna sapien, faucibus pharetra justo luctus quis. Vivamus eleifend fringilla massa
-                            </span>
-                        </div>
-                    </div>
                 </div>
                 <span class="answer">
                     <button class="btn primary">Responder</button>
