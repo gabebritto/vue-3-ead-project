@@ -16,10 +16,10 @@
             </div>
             <div class="modules">
               <ul class="classes">
-                <li>Todos</li>
-                <li>Aguardando Minha Resposta</li>
-                <li>Aguardando Professor</li>
-                <li>Finalizados</li>
+                <li :class="{active: status === ''}" @click="getMySupportsWithStatus('')">Todos</li>
+                <li :class="{active: status === 'A'}" @click="getMySupportsWithStatus('A')">Aguardando Minha Resposta</li>
+                <li :class="{active: status === 'P'}" @click="getMySupportsWithStatus('P')">Aguardando Professor</li>
+                <li :class="{active: status === 'C'}" @click="getMySupportsWithStatus('C')">Finalizados</li>
               </ul>
             </div>
           </div>
@@ -47,7 +47,18 @@ export default {
     const store = useStore()
     const status = ref('')
 
+    const getMySupportsWithStatus = (newStatus) => {
+        status.value = newStatus
+
+        store.dispatch('getMySupports', status.value)
+    }
+
     onMounted(() => store.dispatch('getMySupports', status.value))
+
+    return {
+      getMySupportsWithStatus,
+      status
+    }
   },
   components: {
     SupportsGlobal
