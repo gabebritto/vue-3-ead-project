@@ -36,9 +36,19 @@
 </template>
 
 <script>
+import { onMounted, ref } from 'vue'
+import { useStore } from 'vuex'
+
 import SupportsGlobal from '@/components/Supports.vue'
+
 export default {
   name: 'MySupports',
+  setup() {
+    const store = useStore()
+    const status = ref('')
+
+    onMounted(() => store.dispatch('getMySupports', status.value))
+  },
   components: {
     SupportsGlobal
   }
