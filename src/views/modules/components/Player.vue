@@ -2,7 +2,7 @@
     <div class="training">
         <div class="card bg-laravel">
             <span class="icon">
-                <img src="images/icons/laravel.svg" alt="">
+                <img :src="require('@/assets/images/icons/laravel.svg')" alt="">
             </span>
             <span class="title">{{ lesson.name }}</span>
             <router-link :to="{name: 'ead.home'}" class="btn laravel">
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import { useStore } from 'vuex'
 
 export default {
@@ -25,6 +25,12 @@ export default {
         const store = useStore()
 
         const lesson = computed(() => store.state.courses.lessonPlayer)
+
+        watch(() => store.state.courses.lessonPlayer, () => {
+            if (lesson.value.id != ''){
+                setTimeout(() => store.dispatch('markLessonViewed'), 3000)
+            }
+        })
 
         return {
             lesson

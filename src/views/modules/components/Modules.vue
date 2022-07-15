@@ -16,7 +16,7 @@
                     :key="lesson.id" 
                     :class="{'active' : lesson.id == lessonInPlayer.id}"
                     @click.prevent="addLessonInPlayer(lesson)">
-                        <span v-if="lesson.views.lenght > 0" class="check active fas fa-check" ></span>
+                        <span v-if="lesson.views.length > 0" class="check active fas fa-check" ></span>
                         <span class="nameLesson">{{lesson.name}}</span>
                     </li>
                 </ul>

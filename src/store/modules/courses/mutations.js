@@ -19,6 +19,17 @@ const mutations = {
             video: '',
             views: [],
         }
+    },
+
+    ADD_NEW_VIEW_TO_LESSON (state) {
+        const modules = state.courseSelected.modules
+        modules.forEach((module, moduleIndex) => {
+            module.lessons.forEach((lesson, lessonIndex) => {
+                if (lesson.id === state.lessonPlayer.id){
+                    modules[moduleIndex].lessons[lessonIndex].views.push({})
+                }
+            })
+        });
     }
 }
 
